@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Codificar mensagem para URL
       const textoCodificado = encodeURIComponent(texto);
 
-      // Número de WhatsApp (substitua pelo número real)
+      // Número de WhatsApp
       const numeroWhatsApp = "5581995029361";
 
       // Abrir WhatsApp
@@ -97,24 +97,26 @@ document.addEventListener("DOMContentLoaded", function () {
     inputTelefone.addEventListener("input", function (e) {
       let value = e.target.value.replace(/\D/g, "");
 
+      // Limitar a 11 dígitos (DDD + número)
       if (value.length > 11) {
         value = value.substring(0, 11);
       }
 
-      // Formatar como (XX) XXXXX-XXXX
+      // Aplicar a máscara
+      let formattedValue = "";
       if (value.length > 0) {
-        value = `(${value.substring(0, 2)}`;
+        formattedValue = `(${value.substring(0, 2)}`;
 
         if (value.length > 2) {
-          value += `) ${value.substring(3, 8)}`;
-        }
+          formattedValue += `) ${value.substring(2, 7)}`;
 
-        if (value.length > 10) {
-          value += `-${value.substring(10, 15)}`;
+          if (value.length > 7) {
+            formattedValue += `-${value.substring(7, 11)}`;
+          }
         }
       }
 
-      e.target.value = value;
+      e.target.value = formattedValue;
     });
   }
 
